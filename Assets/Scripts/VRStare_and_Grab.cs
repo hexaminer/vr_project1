@@ -3,28 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class VRStare_and_Grab : MonoBehaviour {
-
     public float secondsToTrigger = 2.0f;
     public Transform VRHand;
-    public Rigidbody TargetObject;
+
+    private Vector3 spearPositionOffset;
+    private Vector3 spearEulerRotation;
 
     private bool isStaring = false;
     private float secondsStared = 0.0f;
 
+    public void Start()
+    {
+        spearPositionOffset = new Vector3(0.0f, 0.0f, -0.5f);
+        spearEulerRotation = new Vector3(0f, 270.0f, 0f);
+    }
+
     public void onGazeEnter()
     {
-        if (isStaring) {
-            return;
-        }
-
-        Debug.Log("Started Staring");
         isStaring = true;
         secondsStared = 0.0f;
     }
 
     public void onGazeExit()
     {
-        Debug.Log("Stoped Staring");
         isStaring = false;
     }
 
@@ -45,12 +46,14 @@ public class VRStare_and_Grab : MonoBehaviour {
     {
         if (secondsStared >= secondsToTrigger) {
             GrabObject();
+            Debug.Log("Grabed Object");
         }
     }
 
     public void GrabObject()
     {
-        TargetObject.transform.parent = VRHand.transform;
-        TargetObject.transform.SetPositionAndRotation(new Vector3(TargetObject.transform.parent.position.x+0.75f, TargetObject.transform.parent.position.y+0.18f, TargetObject.transform.parent.position.z+1f), Quaternion.Euler(new Vector3(-15f, 15f, 0f)));
+        transform.parent = VRHand.transform;
+        Vector3 spearPosition = VRHand.transform.position + spearPositionOffset;
+        transform.SetPositionAndRotation(spearPosition, Quaternion.Euler(spearEulerRotation));
     }
 }
