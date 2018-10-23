@@ -4,34 +4,53 @@ using UnityEngine;
 
 public class VRStare_and_Grab : MonoBehaviour {
 
-    public float stare_time = 0f; // timer 
+    public float secondsToTrigger = 2.0f;
     public Transform VRHand;
     public Rigidbody TargetObject;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        stare_time = stare_time + Time.deltaTime;
+    private bool isStaring = false;
+    private float secondsStared = 0.0f;
 
-        if (stare_time >= 3f) // once a certain amount of time has passed, the object will be 'grabbed'
-        {
-            GrabObject();
+    public void onGazeEnter()
+    {
+        if (isStaring) {
+            return;
+        }
+
+        Debug.Log("Started Staring");
+        isStaring = true;
+        secondsStared = 0.0f;
+    }
+
+    public void onGazeExit()
+    {
+        Debug.Log("Stoped Staring");
+        isStaring = false;
+    }
+
+    private void Update ()
+    {
+        if (isStaring) {
+            tickStaringTimer();
+            maybeGrabObject();
         }
 	}
 
-    public void ResetStareTime()
+    private void tickStaringTimer()
     {
-        stare_time = 0f;
+        secondsStared = secondsStared + Time.deltaTime;
+    }
+
+    private void maybeGrabObject()
+    {
+        if (secondsStared >= secondsToTrigger) {
+            GrabObject();
+        }
     }
 
     public void GrabObject()
     {
         TargetObject.transform.parent = VRHand.transform;
         TargetObject.transform.SetPositionAndRotation(new Vector3(TargetObject.transform.parent.position.x+0.75f, TargetObject.transform.parent.position.y+0.18f, TargetObject.transform.parent.position.z+1f), Quaternion.Euler(new Vector3(-15f, 15f, 0f)));
-
     }
 }

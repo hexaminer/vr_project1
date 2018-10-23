@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class TiltCameraMovement : MonoBehaviour {
 
-    private static Vector3 k_forward = new Vector3(0, 1, 0);
-    private static Vector3 k_backward = new Vector3(0, -1, 0);
-    private static Vector3 k_right = new Vector3(-1, 0, 0);
-    private static Vector3 k_left = new Vector3(1, 0, 0);
-
     public float movementSpeed = 5.0f;
     public float pitchThreshold = 30.0f;
 
@@ -22,8 +17,6 @@ public class TiltCameraMovement : MonoBehaviour {
 	void Update ()
     {
         Vector3 movement = new Vector3();
-
-        Debug.Log(pitchAngle());
 
         if (pitchAngle() >= pitchThreshold && pitchAngle() < 90) {
             movement -= forwardDirection();
