@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VRStare_and_Grab : MonoBehaviour {
-    public float secondsToTrigger = 2.0f;
+public class VRStare_and_Grab : Gaze
+{
     public Transform VRHand;
 
     private Vector3 spearPositionOffset;
     private Vector3 spearEulerRotation;
-
-    private bool isStaring = false;
-    private float secondsStared = 0.0f;
 
     public void Start()
     {
@@ -18,36 +15,9 @@ public class VRStare_and_Grab : MonoBehaviour {
         spearEulerRotation = new Vector3(0f, 270.0f, 0f);
     }
 
-    public void onGazeEnter()
+    protected override void onGazeTrigger()
     {
-        isStaring = true;
-        secondsStared = 0.0f;
-    }
-
-    public void onGazeExit()
-    {
-        isStaring = false;
-    }
-
-    private void Update ()
-    {
-        if (isStaring) {
-            tickStaringTimer();
-            maybeGrabObject();
-        }
-	}
-
-    private void tickStaringTimer()
-    {
-        secondsStared = secondsStared + Time.deltaTime;
-    }
-
-    private void maybeGrabObject()
-    {
-        if (secondsStared >= secondsToTrigger) {
-            GrabObject();
-            Debug.Log("Grabed Object");
-        }
+        GrabObject();
     }
 
     public void GrabObject()
