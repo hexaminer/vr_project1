@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Gaze : MonoBehaviour
 {
     public float secondsToTrigger = 2.0f;
+    public Camera playerCamera;
 
     private bool isStaring = false;
     private float secondsStared = 0.0f;

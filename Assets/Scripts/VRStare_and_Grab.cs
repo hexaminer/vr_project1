@@ -24,6 +24,7 @@ public class VRStare_and_Grab : Gaze
     {
         transform.parent = VRHand.transform;
         Vector3 spearPosition = VRHand.transform.position + spearPositionOffset;
-        transform.SetPositionAndRotation(spearPosition, Quaternion.Euler(spearEulerRotation));
+        Vector3 playeCameraRotationY = new Vector3(0.0f, playerCamera.transform.forward.y - 90, 0.0f);
+        transform.SetPositionAndRotation(spearPosition, Quaternion.Euler(playeCameraRotationY));
     }
 }

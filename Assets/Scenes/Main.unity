@@ -4506,6 +4506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsToTrigger: 2
+  playerCamera: {fileID: 534669904}
   VRHand: {fileID: 757272528}
 --- !u!114 &1948393910
 MonoBehaviour:
@@ -4652,8 +4653,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsToTrigger: 2
-  force: 301
   playerCamera: {fileID: 534669904}
+  force: 301
 --- !u!1001 &1998273518
 Prefab:
   m_ObjectHideFlags: 0

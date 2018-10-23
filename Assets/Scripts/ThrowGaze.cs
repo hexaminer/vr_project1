@@ -5,7 +5,6 @@ using UnityEngine;
 public class ThrowGaze : Gaze {
 
     public float force = 1.0f;
-    public Camera playerCamera;
 
     private Rigidbody rigidBody;
 
